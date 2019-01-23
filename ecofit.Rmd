@@ -1,15 +1,55 @@
 ---
-title: "Economic Fitness"
+title: "Top Ten Economic Fitness"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
+library(tidyr)
+library(dplyr)
+library(plotly)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+### Home work assignment
+
+coursera.org "developing Data product" week 2 assignment
+https://www.coursera.org/learn/data-products/peer/a1Uy9/r-markdown-presentation-plotly
+
+> Create a web page presentation using R Markdown that features a plot created with Plotly. Host your webpage on either GitHub Pages, RPubs, or NeoCities. Your webpage must contain the date that you created the document, and it must contain a plot created with Plotly. We would love to see you show off your creativity!
+
+
 ### Economic Fitness Metric
-Long definition	Economic Fitness (EF) is both a measure of a country’s diversification and ability to produce complex goods on a globally competitive basis.  Countries with the highest levels of EF have capabilities to produce a diverse portfolio of products, ability to upgrade into ever-increasing complex goods, tend to have more predictable long-term growth, and to attain good competitive position relative to other countries.   Countries with low EF levels tend to suffer from poverty, low capabilities, less predictable growth, low value-addition, and trouble upgrading and diversifying faster than other countries.  The starting data is the COMTRADE list of products exported by each country. This data defines a bipartite network of countries and products, or goods and services. A suitably designed mathematical algorithm applied to this network leads to the Economic Fitness of all countries and the Complexity of all products. The comparison of the Fitness to the GDP reveals hidden information for the development and the growth of the countries.
+
+From world bank:
+
+>  Long definition	Economic Fitness (EF) is both a measure of a countries diversification and ability to produce complex goods on a globally competitive basis.  Countries with the highest levels of EF have capabilities to produce a diverse portfolio of products, ability to upgrade into ever-increasing complex goods, tend to have more predictable long-term growth, and to attain good competitive position relative to other countries.   Countries with low EF levels tend to suffer from poverty, low capabilities, less predictable growth, low value-addition, and trouble upgrading and diversifying faster than other countries.  The starting data is the COMTRADE list of products exported by each country. This data defines a bipartite network of countries and products, or goods and services. A suitably designed mathematical algorithm applied to this network leads to the Economic Fitness of all countries and the Complexity of all products. The comparison of the Fitness to the GDP reveals hidden information for the development and the growth of the countries."
 
 
-```{r cars}
-summary(cars)
+### Data
+
+Data is created from world bank data sharing page, "data bank", download as csv file. Pick top 10 countries as of 2015 and only show trend of those countries.
+
+Data is downloaded on Jan. 23 2019, check git repo for reproduce result.
+
+https://github.com/yszhangit/anotherhomework
+
+
+```{r load_data, message=F, warning=F}
+data <- read.csv('data.csv', as.is=T)
+# remove unwanted columns
+data <- data[,-c(2,3,4)]
+# clean up column names
+colnames(data) <- c("country",seq(from=1995, to=2015))
+# reshape DF and convert data type
+data <- gather(data=data, year, value, -country)
+data$value <- as.numeric(data$value)
+# top 10 countries as of 2015
+top10countries <- data %>% filter(year==2015) %>% arrange(value) %>% top_n(10) %>% select(country)
+# filter top country history
+top10 <- data %>% filter(country %in% top10countries$country)
+```
+
+### Plot
+```{r plot, message= F, warning=F, fig.align='center', fig.width=10}
+plot_ly(top10, x=~year, y=~value) %>% add_lines(color = ~country, alpha = 0.5)
+```

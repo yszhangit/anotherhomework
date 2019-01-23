@@ -35,7 +35,7 @@ https://github.com/yszhangit/anotherhomework
 
 Published page:
 
-https://github.com/yszhangit/anotherhomework
+https://yszhangit.github.io/anotherhomework/
 
 ```{r load_data, message=F, warning=F}
 data <- read.csv('data.csv', as.is=T)

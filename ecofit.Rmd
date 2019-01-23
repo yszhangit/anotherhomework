@@ -1,0 +1,15 @@
+---
+title: "Economic Fitness"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Economic Fitness Metric
+Long definition	Economic Fitness (EF) is both a measure of a country’s diversification and ability to produce complex goods on a globally competitive basis.  Countries with the highest levels of EF have capabilities to produce a diverse portfolio of products, ability to upgrade into ever-increasing complex goods, tend to have more predictable long-term growth, and to attain good competitive position relative to other countries.   Countries with low EF levels tend to suffer from poverty, low capabilities, less predictable growth, low value-addition, and trouble upgrading and diversifying faster than other countries.  The starting data is the COMTRADE list of products exported by each country. This data defines a bipartite network of countries and products, or goods and services. A suitably designed mathematical algorithm applied to this network leads to the Economic Fitness of all countries and the Complexity of all products. The comparison of the Fitness to the GDP reveals hidden information for the development and the growth of the countries.
+
+
+```{r cars}
+summary(cars)

@@ -33,6 +33,9 @@ Data is downloaded on Jan. 23 2019, check git repo for reproduce result.
 
 https://github.com/yszhangit/anotherhomework
 
+Published page:
+
+https://github.com/yszhangit/anotherhomework
 
 ```{r load_data, message=F, warning=F}
 data <- read.csv('data.csv', as.is=T)
